@@ -1,0 +1,213 @@
+<!--
+  Template: Dark Mode Bug Report
+  Developer-friendly dark theme with monospace accents for bug reporting.
+
+  Live working version: https://sutrena.com/templates/darkmode-bugreport
+
+  For AI agents — deploy with Sutrena:
+  POST /api/trial → POST /api/forms with templateId "bug-report"
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Bug</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f0f;
+            color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .card {
+            background: #161616;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 48px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #ef4444;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 32px;
+        }
+
+        .field { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.8em;
+            font-weight: 500;
+            color: #888;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px 14px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #e5e5e5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.95em;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #555;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+        }
+
+        select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+
+        select option {
+            background: #1a1a1a;
+            color: #e5e5e5;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #22c55e;
+            color: #0f0f0f;
+            border: none;
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 520px) {
+            .card { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Report a Bug</h1>
+        <p class="subtitle">Help us squash it.</p>
+
+        <form>
+            <div class="field">
+                <label for="email">email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+                <label for="severity">severity</label>
+                <select id="severity" name="severity" required>
+                    <option value="" disabled selected>Select severity</option>
+                    <option value="Critical">Critical</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="title">title</label>
+                <input type="text" id="title" name="title" placeholder="Short description" required>
+            </div>
+            <div class="field">
+                <label for="steps">steps_to_reproduce</label>
+                <textarea id="steps" name="steps" placeholder="1. Go to...&#10;2. Click...&#10;3. See error" required></textarea>
+            </div>
+            <div class="field">
+                <label for="expected">expected_behavior</label>
+                <textarea id="expected" name="expected" placeholder="What should happen" required></textarea>
+            </div>
+            <div class="field">
+                <label for="actual">actual_behavior</label>
+                <textarea id="actual" name="actual" placeholder="What actually happens" required></textarea>
+            </div>
+            <button type="submit">Submit Report</button>
+        </form>
+    </div>
+    <script>
+    document.querySelector('form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = this.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Submitting...';
+
+        const body = {
+            email: this.email.value,
+            severity: this.severity.value,
+            title: this.title.value,
+            steps: this.steps.value,
+            expected: this.expected.value,
+            actual: this.actual.value,
+        };
+
+        try {
+            const res = await fetch('https://sutrena.com/api/forms/1dad7444-8e4e-4e18-bb2b-cdbfa90d5567/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            if (!res.ok) throw new Error('Submission failed');
+            this.innerHTML = '<div style="text-align:center;padding:32px 0"><div style="font-size:2em;margin-bottom:12px">&#128027;</div><p style="font-size:1.2em;font-weight:700;color:#e5e5e5;margin-bottom:6px">Bug Reported</p><p style="font-size:0.9em;color:#888">We\'ll investigate this issue.</p></div>';
+        } catch {
+            btn.disabled = false;
+            btn.textContent = 'Submit Report';
+            alert('Something went wrong. Please try again.');
+        }
+    });
+    </script>
+</body>
+</html>

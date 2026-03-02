@@ -253,7 +253,47 @@ If the user's agent supports MCP (Model Context Protocol), connect directly:
 }
 ```
 
-16 tools available. Discovery: `GET https://sutrena.com/.well-known/mcp.json`
+Discovery: `GET https://sutrena.com/.well-known/mcp.json`
+
+### MCP Tools (17)
+
+| Tool | What it does |
+|---|---|
+| `sutrena_create_form` | Create a hosted form with field definitions |
+| `sutrena_create_from_template` | Create form + dashboard from a built-in template |
+| `sutrena_update_form` | Update form fields, success message, submit label |
+| `sutrena_delete_form` | Delete a form and its dashboards |
+| `sutrena_duplicate_form` | Copy a form (optionally with dashboard) |
+| `sutrena_list_forms` | List all forms with names, field counts, submission stats |
+| `sutrena_get_submissions` | Get recent submissions for a form |
+| `sutrena_search_submissions` | Search/filter submissions by date, field, text, status |
+| `sutrena_export_csv` | Export all submissions as CSV |
+| `sutrena_create_dashboard` | Create a dashboard with DSL widgets |
+| `sutrena_update_dashboard` | Update dashboard title or widget DSL |
+| `sutrena_delete_dashboard` | Delete a dashboard |
+| `sutrena_create_webhook` | Create a webhook for form submission events |
+| `sutrena_list_webhooks` | List all webhooks |
+| `sutrena_delete_webhook` | Delete a webhook |
+| `sutrena_test_webhook` | Send a test ping to verify delivery |
+| `sutrena_get_webhook_deliveries` | View delivery history and status codes |
+
+### MCP Workflow
+
+Typical agent flow when MCP is connected:
+
+1. **Create:** `sutrena_create_from_template` with `templateId` → get formId + dashboardUrl
+2. **Check:** `sutrena_list_forms` → see all forms with names and submission counts
+3. **Read:** `sutrena_get_submissions` or `sutrena_search_submissions` → view data
+4. **Export:** `sutrena_export_csv` → get CSV for spreadsheets
+5. **Notify:** `sutrena_create_webhook` → wire up Slack/Discord/custom URL
+
+### Constructing URLs from MCP responses
+
+The MCP returns relative paths. Prepend `https://sutrena.com` to build shareable links:
+
+- Form URL: `https://sutrena.com/f/{formId}`
+- Dashboard URL: `https://sutrena.com/d/{dashboardId}`
+- Submit endpoint: `https://sutrena.com/api/forms/{formId}/submit`
 
 ## Real-World Examples
 

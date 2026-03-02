@@ -11,6 +11,7 @@
       { "name": "email", "label": "Email", "type": "email", "required": true },
       { "name": "message", "label": "Message", "type": "textarea", "required": true }
     ],
-    "createDashboard": true
+    "createDashboard": true,
+    "formId": "102f7986-8ad8-465a-bbe5-5a95a3be7eb6"
   }
 }

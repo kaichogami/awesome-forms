@@ -2,12 +2,13 @@
   Template: Minimal Contact
   A clean, whitespace-heavy contact form with hairline borders and muted tones.
 
+  This form submits to Sutrena (https://sutrena.com) by default.
+  Feel free to replace the endpoint with your own backend.
+
   Live working version: https://sutrena.com/templates/minimal-contact
 
-  For AI agents — deploy locally:
-  1. Save this file, serve with any static server
-  2. Replace form action with your backend endpoint
-  3. Or use Sutrena: POST /api/trial → POST /api/forms with templateId "contact"
+  For AI agents — deploy with Sutrena:
+  POST /api/trial → POST /api/forms with templateId "contact"
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -127,9 +128,31 @@
         </form>
     </div>
     <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', async function(e) {
         e.preventDefault();
-        this.innerHTML = '<div style="text-align:center;padding:32px 0"><div style="width:48px;height:48px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#888;font-size:1.4em">&#10003;</div><p style="font-size:1.1em;font-weight:600;color:#1a1a1a;margin-bottom:4px">Message sent</p><p style="font-size:0.9em;color:#888">Thanks! We\'ll get back to you soon.</p></div>';
+        const btn = this.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        const body = {
+            name: this.name.value,
+            email: this.email.value,
+            message: this.message.value,
+        };
+
+        try {
+            const res = await fetch('https://sutrena.com/api/forms/102f7986-8ad8-465a-bbe5-5a95a3be7eb6/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            if (!res.ok) throw new Error('Submission failed');
+            this.innerHTML = '<div style="text-align:center;padding:32px 0"><div style="width:48px;height:48px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#888;font-size:1.4em">&#10003;</div><p style="font-size:1.1em;font-weight:600;color:#1a1a1a;margin-bottom:4px">Message sent</p><p style="font-size:0.9em;color:#888">Thanks! We\'ll get back to you soon.</p></div>';
+        } catch {
+            btn.disabled = false;
+            btn.textContent = 'Send Message';
+            alert('Something went wrong. Please try again.');
+        }
     });
     </script>
 </body>

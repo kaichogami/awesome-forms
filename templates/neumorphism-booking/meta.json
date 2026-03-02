@@ -1,0 +1,20 @@
+{
+  "name": "Neumorphism Booking",
+  "slug": "neumorphism-booking",
+  "description": "Soft neumorphic UI with pressed-in inputs for appointment booking",
+  "category": "booking",
+  "tags": ["neumorphism", "soft", "clean"],
+  "sutrena": {
+    "templateId": "booking",
+    "fields": [
+      { "name": "name", "label": "Name", "type": "text", "required": true },
+      { "name": "email", "label": "Email", "type": "email", "required": true },
+      { "name": "date", "label": "Date", "type": "date", "required": true },
+      { "name": "time_slot", "label": "Time Slot", "type": "select", "required": true, "options": ["Morning", "Afternoon", "Evening"] },
+      { "name": "service", "label": "Service", "type": "select", "required": true, "options": ["Consultation", "Class", "Session", "Other"] },
+      { "name": "notes", "label": "Notes", "type": "textarea" }
+    ],
+    "createDashboard": true,
+    "formId": "5bf13536-c0d6-4fb2-a313-417ac7d82c97"
+  }
+}

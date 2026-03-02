@@ -1,34 +1,60 @@
 # Awesome Forms
-> Beautiful, open-source form templates. Self-contained HTML files you can use anywhere.
+> Beautiful, open-source form templates. Self-contained HTML files that submit to Sutrena out of the box.
 
 ## What This Is
 
-A collection of beautifully designed form templates. Each template is a single HTML file with inline CSS — no dependencies, no build step. Use them standalone or deploy them with the Sutrena API for hosted forms + dashboards.
+A collection of beautifully designed form templates. Each template is a single HTML file with inline CSS and minimal JavaScript — no dependencies, no build step. Every template submits to Sutrena by default, so they work immediately when opened in a browser. Replace the endpoint with your own backend if preferred.
 
-## Design Templates (4)
+## Design Templates (9)
 
 | Slug | Style | Category | HTML |
 | neo-brutalist-waitlist | Bold borders, chunky type, bright yellow | waitlist | templates/neo-brutalist-waitlist/index.html |
 | minimal-contact | Clean whitespace, hairline borders, system fonts | contact | templates/minimal-contact/index.html |
 | glassmorphism-feedback | Frosted glass on gradient, CSS star rating | feedback | templates/glassmorphism-feedback/index.html |
 | retro-newsletter | Terminal aesthetic, monospace, dashed borders | newsletter | templates/retro-newsletter/index.html |
-
-## Using Standalone
-
-1. Download any template's index.html
-2. Replace form action="#" with your backend endpoint
-3. Serve with any static server or embed in your site
+| gradient-survey | Soft gradient mesh, warm sunset tones | survey | templates/gradient-survey/index.html |
+| neumorphism-booking | Soft shadows, pressed inputs, clean UI | booking | templates/neumorphism-booking/index.html |
+| elegant-rsvp | Dark navy, gold accents, invitation style | rsvp | templates/elegant-rsvp/index.html |
+| darkmode-bugreport | Developer dark theme, monospace, red accents | bug-report | templates/darkmode-bugreport/index.html |
+| clean-order | Professional, trust-building, blue accents | order | templates/clean-order/index.html |
 
 ## Using with Sutrena API
 
-Each template has a meta.json with Sutrena field definitions. To deploy as a hosted form:
+Each template has a meta.json with Sutrena field definitions and a formId. To deploy as a hosted form:
 
 1. Get a key: POST https://sutrena.com/api/trial (no signup)
 2. Create a form: POST https://sutrena.com/api/forms with templateId or custom fields from meta.json
 3. Share the URL: https://sutrena.com/f/FORM_ID
 
-Full API docs: https://sutrena.com/llms-full.txt
-Machine-readable schema: https://sutrena.com/api/schema
+Base URL for all Sutrena links: https://sutrena.com
+- Form URL: https://sutrena.com/f/{formId}
+- Dashboard URL: https://sutrena.com/d/{dashboardId}
+- Submit endpoint: https://sutrena.com/api/forms/{formId}/submit (no auth required, CORS enabled)
+
+## Using with Sutrena MCP
+
+If the agent has MCP access, use these tools directly:
+
+| Tool | Purpose |
+| sutrena_create_form | Create a hosted form with custom fields |
+| sutrena_create_from_template | Create form + dashboard from template (one call) |
+| sutrena_list_forms | List all forms with names, stats, submission counts |
+| sutrena_get_submissions | Get recent submissions |
+| sutrena_search_submissions | Search/filter by date, field, text, status |
+| sutrena_export_csv | Export submissions as CSV |
+| sutrena_update_form | Update fields, success message, submit label |
+| sutrena_duplicate_form | Copy a form |
+| sutrena_delete_form | Delete form and dashboards |
+| sutrena_create_dashboard | Create dashboard with DSL widgets |
+| sutrena_update_dashboard | Update dashboard |
+| sutrena_delete_dashboard | Delete dashboard |
+| sutrena_create_webhook | Webhook for submission events |
+| sutrena_list_webhooks | List webhooks |
+| sutrena_test_webhook | Test ping |
+| sutrena_delete_webhook | Delete webhook |
+| sutrena_get_webhook_deliveries | Delivery logs |
+
+MCP endpoint: https://sutrena.com/api/mcp (Bearer token auth)
 
 ## Sutrena Built-in Templates (14)
 

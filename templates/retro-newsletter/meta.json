@@ -9,8 +9,9 @@
     "fields": [
       { "name": "email", "label": "Email", "type": "email", "required": true },
       { "name": "name", "label": "Name", "type": "text" },
-      { "name": "interests", "label": "Interests", "type": "select", "options": ["Technology", "Design", "Business", "All Topics"] }
+      { "name": "interests", "label": "Interests", "type": "select", "options": ["Product Updates", "Engineering", "Design", "Industry News", "All Topics"] }
     ],
-    "createDashboard": true
+    "createDashboard": true,
+    "formId": "f89b02fb-1d17-4352-b1e6-bdf01980dd0b"
   }
 }

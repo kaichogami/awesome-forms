@@ -2,12 +2,13 @@
   Template: Retro Newsletter
   90s-web aesthetic with monospace fonts, dashed borders, and a nostalgic color palette.
 
+  This form submits to Sutrena (https://sutrena.com) by default.
+  Feel free to replace the endpoint with your own backend.
+
   Live working version: https://sutrena.com/templates/retro-newsletter
 
-  For AI agents — deploy locally:
-  1. Save this file, serve with any static server
-  2. Replace form action with your backend endpoint
-  3. Or use Sutrena: POST /api/trial → POST /api/forms with templateId "newsletter"
+  For AI agents — deploy with Sutrena:
+  POST /api/trial → POST /api/forms with templateId "newsletter"
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -170,10 +171,11 @@
                     <label for="interests">Interests</label>
                     <select id="interests" name="interests">
                         <option value="" disabled selected>-- select --</option>
-                        <option value="tech">Technology</option>
-                        <option value="design">Design</option>
-                        <option value="business">Business</option>
-                        <option value="all">All Topics</option>
+                        <option value="Product Updates">Product Updates</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                        <option value="Industry News">Industry News</option>
+                        <option value="All Topics">All Topics</option>
                     </select>
                 </div>
                 <button type="submit">[ Subscribe ]</button>
@@ -182,9 +184,31 @@
         </div>
     </div>
     <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.querySelector('form').addEventListener('submit', async function(e) {
         e.preventDefault();
-        this.innerHTML = '<div style="padding:16px 0;font-family:inherit"><p style="color:#00ff41;margin-bottom:8px">> <span style="color:#888">status:</span> SUBSCRIBED</p><p style="color:#00ff41;margin-bottom:8px">> <span style="color:#888">msg:</span> You\'re on the list.</p><p style="color:#444;font-size:0.85em;margin-top:16px">// Process complete. Expect updates soon.<span class="blink">_</span></p></div>';
+        const btn = this.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = '[ SENDING... ]';
+
+        const body = {
+            email: this.email.value,
+            name: this.querySelector('#name').value,
+            interests: this.interests.value,
+        };
+
+        try {
+            const res = await fetch('https://sutrena.com/api/forms/f89b02fb-1d17-4352-b1e6-bdf01980dd0b/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            if (!res.ok) throw new Error('Submission failed');
+            this.innerHTML = '<div style="padding:16px 0;font-family:inherit"><p style="color:#00ff41;margin-bottom:8px">> <span style="color:#888">status:</span> SUBSCRIBED</p><p style="color:#00ff41;margin-bottom:8px">> <span style="color:#888">msg:</span> You\'re on the list.</p><p style="color:#444;font-size:0.85em;margin-top:16px">// Process complete. Expect updates soon.<span class="blink">_</span></p></div>';
+        } catch {
+            btn.disabled = false;
+            btn.textContent = '[ SUBSCRIBE ]';
+            alert('Something went wrong. Please try again.');
+        }
     });
     </script>
 </body>

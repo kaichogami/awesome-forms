@@ -1,0 +1,20 @@
+{
+  "name": "Clean Order",
+  "slug": "clean-order",
+  "description": "Professional, trust-building order form with clean commercial styling",
+  "category": "order",
+  "tags": ["clean", "commercial", "professional"],
+  "sutrena": {
+    "templateId": "order",
+    "fields": [
+      { "name": "name", "label": "Name", "type": "text", "required": true },
+      { "name": "email", "label": "Email", "type": "email", "required": true },
+      { "name": "item", "label": "Item", "type": "select", "required": true, "options": ["Item A", "Item B", "Item C", "Custom"] },
+      { "name": "quantity", "label": "Quantity", "type": "number", "required": true, "min": 1, "max": 10 },
+      { "name": "size", "label": "Size", "type": "select", "required": true, "options": ["Small", "Medium", "Large"] },
+      { "name": "special_requests", "label": "Special Requests", "type": "textarea" }
+    ],
+    "createDashboard": true,
+    "formId": "a0e11fa9-ae07-44a9-8b9c-e00c82fcef9b"
+  }
+}

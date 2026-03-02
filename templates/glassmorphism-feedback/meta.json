@@ -12,6 +12,7 @@
       { "name": "rating", "label": "Rating", "type": "select", "required": true, "options": ["1", "2", "3", "4", "5"] },
       { "name": "feedback", "label": "Your Feedback", "type": "textarea", "required": true }
     ],
-    "createDashboard": true
+    "createDashboard": true,
+    "formId": "85540fba-ccd5-4a84-8e05-0d1ba8960985"
   }
 }
