@@ -141,7 +141,7 @@
         <h1>Share Your Feedback</h1>
         <p class="subtitle">Help us improve your experience.</p>
 
-        <form action="#" method="POST">
+        <form>
             <div class="field">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="you@example.com" required>
@@ -173,5 +173,11 @@
             <button type="submit">Submit Feedback</button>
         </form>
     </div>
+    <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.innerHTML = '<div style="text-align:center;padding:28px 0"><div style="font-size:2.4em;color:#ffd700;margin-bottom:12px">&#9733;</div><p style="font-size:1.2em;font-weight:700;color:#fff;margin-bottom:6px">Thank you!</p><p style="font-size:0.9em;color:rgba(255,255,255,0.7)">Your feedback has been received.</p></div>';
+    });
+    </script>
 </body>
 </html>
