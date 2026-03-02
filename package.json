@@ -1,0 +1,11 @@
+{
+  "name": "awesome-forms",
+  "version": "1.0.0",
+  "description": "Beautiful, open-source form templates",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaichogami/awesome-forms"
+  },
+  "keywords": ["forms", "templates", "html", "css", "open-source"]
+}

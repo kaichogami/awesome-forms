@@ -1,0 +1,16 @@
+{
+  "name": "Minimal Contact",
+  "slug": "minimal-contact",
+  "description": "Clean, whitespace-heavy contact form with hairline borders and system fonts",
+  "category": "contact",
+  "tags": ["minimal", "clean", "modern"],
+  "sutrena": {
+    "templateId": "contact",
+    "fields": [
+      { "name": "name", "label": "Name", "type": "text", "required": true },
+      { "name": "email", "label": "Email", "type": "email", "required": true },
+      { "name": "message", "label": "Message", "type": "textarea", "required": true }
+    ],
+    "createDashboard": true
+  }
+}

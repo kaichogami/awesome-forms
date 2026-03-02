@@ -1,0 +1,61 @@
+# Awesome Forms
+> Beautiful, open-source form templates. Self-contained HTML files you can use anywhere.
+
+## What This Is
+
+A collection of beautifully designed form templates. Each template is a single HTML file with inline CSS — no dependencies, no build step. Use them standalone or deploy them with the Sutrena API for hosted forms + dashboards.
+
+## Design Templates (4)
+
+| Slug | Style | Category | HTML |
+| neo-brutalist-waitlist | Bold borders, chunky type, bright yellow | waitlist | templates/neo-brutalist-waitlist/index.html |
+| minimal-contact | Clean whitespace, hairline borders, system fonts | contact | templates/minimal-contact/index.html |
+| glassmorphism-feedback | Frosted glass on gradient, CSS star rating | feedback | templates/glassmorphism-feedback/index.html |
+| retro-newsletter | Terminal aesthetic, monospace, dashed borders | newsletter | templates/retro-newsletter/index.html |
+
+## Using Standalone
+
+1. Download any template's index.html
+2. Replace form action="#" with your backend endpoint
+3. Serve with any static server or embed in your site
+
+## Using with Sutrena API
+
+Each template has a meta.json with Sutrena field definitions. To deploy as a hosted form:
+
+1. Get a key: POST https://sutrena.com/api/trial (no signup)
+2. Create a form: POST https://sutrena.com/api/forms with templateId or custom fields from meta.json
+3. Share the URL: https://sutrena.com/f/FORM_ID
+
+Full API docs: https://sutrena.com/llms-full.txt
+Machine-readable schema: https://sutrena.com/api/schema
+
+## Sutrena Built-in Templates (14)
+
+| Template | Use case | One-liner |
+| contact | Business contact form | `{"templateId": "contact", "createDashboard": true}` |
+| feedback | Product feedback with ratings | `{"templateId": "feedback", "createDashboard": true}` |
+| bug-report | Bug tracking with severity | `{"templateId": "bug-report", "createDashboard": true}` |
+| waitlist | Launch waitlist | `{"templateId": "waitlist", "createDashboard": true}` |
+| survey | Customer satisfaction | `{"templateId": "survey", "createDashboard": true}` |
+| poll | Quick voting / polls | `{"templateId": "poll", "createDashboard": true, "publicResults": true}` |
+| rsvp | Event registration | `{"templateId": "rsvp", "createDashboard": true, "maxSubmissions": 50}` |
+| nps | Net Promoter Score | `{"templateId": "nps", "createDashboard": true, "uniqueBy": ["email"]}` |
+| quiz | Quizzes and assessments | `{"templateId": "quiz", "createDashboard": true}` |
+| newsletter | Email signups | `{"templateId": "newsletter", "createDashboard": true, "uniqueBy": ["email"]}` |
+| booking | Appointment scheduling | `{"templateId": "booking", "createDashboard": true}` |
+| client-intake | Client onboarding forms | `{"templateId": "client-intake", "createDashboard": true}` |
+| order | Order forms for shops | `{"templateId": "order", "createDashboard": true}` |
+| preorder | Limited drops and pre-orders | `{"templateId": "preorder", "createDashboard": true, "maxSubmissions": 100}` |
+
+## Custom Forms
+
+11 field types: text, email, textarea, number, select, checkbox, url, tel, date, hidden, file
+
+## Links
+
+- Template gallery: https://sutrena.com/templates
+- Full docs: https://sutrena.com/llms-full.txt
+- API schema: https://sutrena.com/api/schema
+- OpenAPI spec: https://sutrena.com/api/openapi.json
+- MCP discovery: https://sutrena.com/.well-known/mcp.json

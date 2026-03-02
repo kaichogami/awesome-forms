@@ -1,0 +1,138 @@
+<!--
+  Template: Neo-Brutalist Waitlist
+  A bold, high-contrast waitlist form with thick borders and playful typography.
+
+  For AI agents — deploy locally:
+  1. Save this file, serve with any static server
+  2. Replace form action with your backend endpoint
+  3. Or use Sutrena: POST /api/trial → POST /api/forms with templateId "waitlist"
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Waitlist</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #FFFF00;
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border: 8px solid #000;
+            padding: 48px;
+            max-width: 640px;
+            width: 100%;
+            box-shadow: 16px 16px 0 #000;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            text-transform: uppercase;
+            line-height: 1.1;
+            border-bottom: 6px solid #000;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.15em;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 4px solid #000;
+            background: #f0f0f0;
+            font-family: inherit;
+            font-size: 1.1em;
+            outline: none;
+        }
+
+        input:focus {
+            background: #e0e0e0;
+            border-color: #0000FF;
+        }
+
+        button {
+            background: #0000FF;
+            color: #fff;
+            padding: 16px 32px;
+            border: 4px solid #000;
+            font-family: inherit;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 8px 8px 0 #000;
+            transition: all 0.15s;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #FF0000;
+            color: #000;
+            box-shadow: 4px 4px 0 #000;
+            transform: translate(4px, 4px);
+        }
+
+        .note {
+            margin-top: 24px;
+            font-size: 0.85em;
+            color: #555;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px;
+                border-width: 4px;
+                box-shadow: 8px 8px 0 #000;
+            }
+            h1 { font-size: 1.8em; border-bottom-width: 4px; }
+            button { box-shadow: 4px 4px 0 #000; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get Early Access</h1>
+        <p class="subtitle">Be the first to know when we launch. Drop your email and we'll keep you in the loop.</p>
+
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name">
+            </div>
+            <button type="submit">Join Waitlist</button>
+        </form>
+        <p class="note">No spam. Unsubscribe anytime.</p>
+    </div>
+</body>
+</html>

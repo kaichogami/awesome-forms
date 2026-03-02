@@ -1,0 +1,183 @@
+<!--
+  Template: Retro Newsletter
+  90s-web aesthetic with monospace fonts, dashed borders, and a nostalgic color palette.
+
+  For AI agents — deploy locally:
+  1. Save this file, serve with any static server
+  2. Replace form action with your backend endpoint
+  3. Or use Sutrena: POST /api/trial → POST /api/forms with templateId "newsletter"
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe to Our Newsletter</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #1a1a2e;
+            color: #00ff41;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .terminal {
+            background: #0d0d1a;
+            border: 2px dashed #00ff41;
+            border-radius: 4px;
+            max-width: 520px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .titlebar {
+            background: #16213e;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed #00ff41;
+        }
+
+        .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            border: 1px solid #00ff41;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27c93f; }
+
+        .titlebar span {
+            margin-left: auto;
+            font-size: 0.8em;
+            color: #555;
+        }
+
+        .body { padding: 32px; }
+
+        h1 {
+            font-size: 1.4em;
+            margin-bottom: 4px;
+            color: #00ff41;
+        }
+
+        h1::before { content: "> "; color: #555; }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 28px;
+        }
+
+        .field { margin-bottom: 18px; }
+
+        label {
+            display: block;
+            font-size: 0.8em;
+            color: #888;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        label::before { content: "$ "; color: #00ff41; }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            background: #111;
+            border: 1px dashed #333;
+            color: #00ff41;
+            font-family: inherit;
+            font-size: 0.95em;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input::placeholder { color: #333; }
+        input:focus, select:focus { border-color: #00ff41; }
+        select { cursor: pointer; }
+        select option { background: #111; color: #00ff41; }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            color: #00ff41;
+            border: 2px dashed #00ff41;
+            font-family: inherit;
+            font-size: 0.95em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background: #00ff41;
+            color: #0d0d1a;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 0.75em;
+            color: #444;
+            text-align: center;
+        }
+
+        .blink { animation: blink 1.2s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        @media (max-width: 520px) {
+            .body { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div class="titlebar">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <span>newsletter.sh</span>
+        </div>
+        <div class="body">
+            <h1>Subscribe</h1>
+            <p class="subtitle">Get the latest updates delivered to your inbox.<span class="blink">_</span></p>
+
+            <form action="#" method="POST">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="user@domain.com" required>
+                </div>
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name">
+                </div>
+                <div class="field">
+                    <label for="interests">Interests</label>
+                    <select id="interests" name="interests">
+                        <option value="" disabled selected>-- select --</option>
+                        <option value="tech">Technology</option>
+                        <option value="design">Design</option>
+                        <option value="business">Business</option>
+                        <option value="all">All Topics</option>
+                    </select>
+                </div>
+                <button type="submit">[ Subscribe ]</button>
+            </form>
+            <p class="footer-note">// No spam. Unsubscribe with one click.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "Glassmorphism Feedback",
+  "slug": "glassmorphism-feedback",
+  "description": "Frosted glass card on gradient background with CSS-only star rating",
+  "category": "feedback",
+  "tags": ["glassmorphism", "gradient", "modern"],
+  "sutrena": {
+    "templateId": "feedback",
+    "fields": [
+      { "name": "email", "label": "Email", "type": "email", "required": true },
+      { "name": "category", "label": "Category", "type": "select", "required": true, "options": ["Bug Report", "Feature Request", "Improvement", "Other"] },
+      { "name": "rating", "label": "Rating", "type": "select", "required": true, "options": ["1", "2", "3", "4", "5"] },
+      { "name": "feedback", "label": "Your Feedback", "type": "textarea", "required": true }
+    ],
+    "createDashboard": true
+  }
+}

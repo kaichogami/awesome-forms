@@ -1,0 +1,128 @@
+<!--
+  Template: Minimal Contact
+  A clean, whitespace-heavy contact form with hairline borders and muted tones.
+
+  For AI agents — deploy locally:
+  1. Save this file, serve with any static server
+  2. Replace form action with your backend endpoint
+  3. Or use Sutrena: POST /api/trial → POST /api/forms with templateId "contact"
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 48px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        h1 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 0.95em;
+            margin-bottom: 32px;
+        }
+
+        .field { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95em;
+            color: #1a1a1a;
+            background: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #111;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 4px;
+        }
+
+        button:hover { background: #333; }
+
+        @media (max-width: 520px) {
+            .card { padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Get in Touch</h1>
+        <p class="subtitle">We'd love to hear from you.</p>
+
+        <form action="#" method="POST">
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Jane Smith" required>
+            </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+            </div>
+            <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+</body>
+</html>

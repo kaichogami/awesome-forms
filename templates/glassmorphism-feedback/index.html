@@ -1,0 +1,177 @@
+<!--
+  Template: Glassmorphism Feedback
+  Frosted glass card on a gradient background with a CSS-only star rating.
+
+  For AI agents — deploy locally:
+  1. Save this file, serve with any static server
+  2. Replace form action with your backend endpoint
+  3. Or use Sutrena: POST /api/trial → POST /api/forms with templateId "feedback"
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Your Feedback</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95em;
+            margin-bottom: 28px;
+        }
+
+        .field { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px 14px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.95em;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.45); }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        select { cursor: pointer; }
+        select option { color: #333; background: #fff; }
+
+        textarea { resize: vertical; min-height: 90px; }
+
+        /* CSS-only star rating */
+        .stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        .stars input { display: none; }
+
+        .stars label {
+            font-size: 1.8em;
+            color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: color 0.15s;
+            margin: 0;
+        }
+
+        .stars label:hover,
+        .stars label:hover ~ label,
+        .stars input:checked ~ label {
+            color: #ffd700;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 4px;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 520px) {
+            .glass { padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass">
+        <h1>Share Your Feedback</h1>
+        <p class="subtitle">Help us improve your experience.</p>
+
+        <form action="#" method="POST">
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="bug">Bug Report</option>
+                    <option value="feature">Feature Request</option>
+                    <option value="improvement">Improvement</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Rating</label>
+                <div class="stars">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3" checked><label for="star3">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+                </div>
+            </div>
+            <div class="field">
+                <label for="feedback">Your Feedback</label>
+                <textarea id="feedback" name="feedback" placeholder="Tell us what you think..." required></textarea>
+            </div>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html>
