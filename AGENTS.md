@@ -240,20 +240,54 @@ To upgrade: give user `https://sutrena.com/upgrade?trial=THEIR_TRIAL_KEY` — au
 
 ## MCP Connection
 
-If the user's agent supports MCP (Model Context Protocol), connect directly:
+If the user's agent supports MCP (Model Context Protocol), connect directly.
+Discovery: `GET https://sutrena.com/.well-known/mcp.json`
 
+### Fastest way to connect (one command, no signup)
+
+Paste this in a terminal — gets a trial key and connects MCP in one go:
+
+```bash
+export SUTRENA_KEY=$(curl -s -X POST https://sutrena.com/api/trial | grep -o '"key":"[^"]*"' | cut -d'"' -f4) && claude mcp add sutrena --transport streamable-http --url https://sutrena.com/api/mcp --header "Authorization: Bearer $SUTRENA_KEY"
+```
+
+That's it. 7-day trial, 17 tools, no signup. Upgrade later at https://sutrena.com/pricing.
+
+### Setup by provider
+
+**Claude Code:**
+```bash
+claude mcp add sutrena --transport streamable-http \
+  --url https://sutrena.com/api/mcp \
+  --header "Authorization: Bearer YOUR_KEY"
+```
+
+Or add to `.mcp.json` in your project root:
 ```json
 {
   "mcpServers": {
     "sutrena": {
+      "type": "streamable-http",
       "url": "https://sutrena.com/api/mcp",
-      "headers": { "Authorization": "Bearer st_live_xxx" }
+      "headers": { "Authorization": "Bearer YOUR_KEY" }
     }
   }
 }
 ```
 
-Discovery: `GET https://sutrena.com/.well-known/mcp.json`
+**Cursor:**
+Settings → MCP → Add new MCP server → Type: streamable-http, URL: `https://sutrena.com/api/mcp`, Header: `Authorization: Bearer YOUR_KEY`
+
+**Windsurf:**
+Settings → Cascade → MCP → Add server → Streamable HTTP → URL: `https://sutrena.com/api/mcp` with Bearer token header
+
+**Codex (OpenAI):**
+```bash
+codex --url https://sutrena.com/api/mcp --bearer-token-env-var SUTRENA_API_KEY
+```
+
+**Any MCP client:**
+POST/GET `https://sutrena.com/api/mcp` with header `Authorization: Bearer st_live_xxx` or `st_trial_xxx`
 
 ### MCP Tools (17)
 

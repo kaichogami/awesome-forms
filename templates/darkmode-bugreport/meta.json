@@ -4,6 +4,7 @@
   "description": "Developer-friendly dark theme with monospace accents for bug reporting",
   "category": "bug-report",
   "tags": ["dark", "developer", "monospace"],
+  "liveDemo": "https://sutrena.com/templates/darkmode-bugreport",
   "sutrena": {
     "templateId": "bug-report",
     "fields": [

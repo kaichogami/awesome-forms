@@ -1,0 +1,20 @@
+{
+  "name": "Screen Time Survey",
+  "slug": "screentime-survey",
+  "description": "Anonymous multi-step poll about screen habits with live results dashboard",
+  "category": "survey",
+  "tags": ["poll", "multi-step", "dark", "anonymous"],
+  "liveDemo": "https://sutrena.com/templates/screentime-survey",
+  "sutrena": {
+    "fields": [
+      { "name": "screen_time", "label": "Daily screen time", "type": "select", "required": true, "options": ["Less than 2 hours", "2-4 hours", "4-6 hours", "6-8 hours", "8+ hours"] },
+      { "name": "primary_activity", "label": "Primary activity", "type": "select", "required": true, "options": ["Social media", "Work", "Gaming", "Streaming", "News", "Other"] },
+      { "name": "primary_device", "label": "Primary device", "type": "select", "required": true, "options": ["Phone", "Laptop", "Desktop", "Tablet"] },
+      { "name": "before_bed", "label": "Screen use before bed", "type": "select", "required": true, "options": ["Always", "Often", "Sometimes", "Rarely", "Never"] },
+      { "name": "too_much", "label": "Do you think you spend too much time on screens?", "type": "select", "required": true, "options": ["Definitely yes", "Probably yes", "Not sure", "Probably no", "Definitely no"] }
+    ],
+    "createDashboard": true,
+    "formId": "8aeb610e-eb85-4bee-ab8a-219fe98b9ba2",
+    "dashboardSlug": "screentime-results"
+  }
+}

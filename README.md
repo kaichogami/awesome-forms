@@ -4,17 +4,17 @@ Beautiful, open-source form templates you can use anywhere. Each template is a s
 
 ## Templates
 
-| Preview | Template | Style | Category |
-|---------|----------|-------|----------|
-| [View](./templates/neo-brutalist-waitlist/) | **Neo-Brutalist Waitlist** | Bold borders, chunky type, bright yellow accent | Waitlist |
-| [View](./templates/minimal-contact/) | **Minimal Contact** | Clean whitespace, hairline borders, system fonts | Contact |
-| [View](./templates/glassmorphism-feedback/) | **Glassmorphism Feedback** | Frosted glass on gradient, CSS star rating | Feedback |
-| [View](./templates/retro-newsletter/) | **Retro Newsletter** | Terminal aesthetic, monospace, dashed borders | Newsletter |
-| [View](./templates/gradient-survey/) | **Gradient Survey** | Soft gradient mesh, warm sunset tones | Survey |
-| [View](./templates/neumorphism-booking/) | **Neumorphism Booking** | Soft shadows, pressed inputs, clean UI | Booking |
-| [View](./templates/elegant-rsvp/) | **Elegant RSVP** | Dark navy, gold accents, invitation style | RSVP |
-| [View](./templates/darkmode-bugreport/) | **Dark Mode Bug Report** | Developer dark theme, monospace, red accents | Bug Report |
-| [View](./templates/clean-order/) | **Clean Order** | Professional, trust-building, blue accents | Order |
+| Template | Style | Category | Live Demo |
+|----------|-------|----------|-----------|
+| **Neo-Brutalist Waitlist** | Bold borders, chunky type, bright yellow accent | Waitlist | [Try it](https://sutrena.com/templates/neo-brutalist-waitlist) |
+| **Minimal Contact** | Clean whitespace, hairline borders, system fonts | Contact | [Try it](https://sutrena.com/templates/minimal-contact) |
+| **Glassmorphism Feedback** | Frosted glass on gradient, CSS star rating | Feedback | [Try it](https://sutrena.com/templates/glassmorphism-feedback) |
+| **Retro Newsletter** | Terminal aesthetic, monospace, dashed borders | Newsletter | [Try it](https://sutrena.com/templates/retro-newsletter) |
+| **Gradient Survey** | Soft gradient mesh, warm sunset tones | Survey | [Try it](https://sutrena.com/templates/gradient-survey) |
+| **Neumorphism Booking** | Soft shadows, pressed inputs, clean UI | Booking | [Try it](https://sutrena.com/templates/neumorphism-booking) |
+| **Elegant RSVP** | Dark navy, gold accents, invitation style | RSVP | [Try it](https://sutrena.com/templates/elegant-rsvp) |
+| **Dark Mode Bug Report** | Developer dark theme, monospace, red accents | Bug Report | [Try it](https://sutrena.com/templates/darkmode-bugreport) |
+| **Clean Order** | Professional, trust-building, blue accents | Order | [Try it](https://sutrena.com/templates/clean-order) |
 
 ## Usage
 

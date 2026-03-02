@@ -4,6 +4,7 @@
   "description": "Frosted glass card on gradient background with CSS-only star rating",
   "category": "feedback",
   "tags": ["glassmorphism", "gradient", "modern"],
+  "liveDemo": "https://sutrena.com/templates/glassmorphism-feedback",
   "sutrena": {
     "templateId": "feedback",
     "fields": [

@@ -4,6 +4,7 @@
   "description": "Soft gradient mesh background with a clean white card for customer surveys",
   "category": "survey",
   "tags": ["gradient", "colorful", "modern"],
+  "liveDemo": "https://sutrena.com/templates/gradient-survey",
   "sutrena": {
     "templateId": "survey",
     "fields": [

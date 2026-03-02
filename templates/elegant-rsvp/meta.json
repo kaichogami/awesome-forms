@@ -4,6 +4,7 @@
   "description": "Dark, refined invitation style with gold accents for event RSVPs",
   "category": "rsvp",
   "tags": ["elegant", "dark", "gold"],
+  "liveDemo": "https://sutrena.com/templates/elegant-rsvp",
   "sutrena": {
     "templateId": "rsvp",
     "fields": [

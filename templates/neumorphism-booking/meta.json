@@ -4,6 +4,7 @@
   "description": "Soft neumorphic UI with pressed-in inputs for appointment booking",
   "category": "booking",
   "tags": ["neumorphism", "soft", "clean"],
+  "liveDemo": "https://sutrena.com/templates/neumorphism-booking",
   "sutrena": {
     "templateId": "booking",
     "fields": [

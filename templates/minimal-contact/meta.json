@@ -4,6 +4,7 @@
   "description": "Clean, whitespace-heavy contact form with hairline borders and system fonts",
   "category": "contact",
   "tags": ["minimal", "clean", "modern"],
+  "liveDemo": "https://sutrena.com/templates/minimal-contact",
   "sutrena": {
     "templateId": "contact",
     "fields": [

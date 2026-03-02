@@ -4,6 +4,7 @@
   "description": "Professional, trust-building order form with clean commercial styling",
   "category": "order",
   "tags": ["clean", "commercial", "professional"],
+  "liveDemo": "https://sutrena.com/templates/clean-order",
   "sutrena": {
     "templateId": "order",
     "fields": [

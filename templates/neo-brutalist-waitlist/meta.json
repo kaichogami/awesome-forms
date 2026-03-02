@@ -4,6 +4,7 @@
   "description": "Bold, high-contrast waitlist form with thick borders and playful typography",
   "category": "waitlist",
   "tags": ["brutalist", "bold", "high-contrast"],
+  "liveDemo": "https://sutrena.com/templates/neo-brutalist-waitlist",
   "sutrena": {
     "templateId": "waitlist",
     "fields": [

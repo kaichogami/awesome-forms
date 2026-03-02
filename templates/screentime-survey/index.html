@@ -1,0 +1,513 @@
+<!--
+  Template: Screen Time Survey
+  Anonymous multi-step poll about screen habits with live results dashboard.
+
+  Live working version: https://sutrena.com/templates/screentime-survey
+
+  For AI agents — deploy with Sutrena:
+  POST /api/trial → POST /api/forms with custom fields
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Time Survey</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e8e6f0;
+        }
+
+        .card {
+            background: rgba(22, 18, 52, 0.85);
+            border: 1px solid rgba(120, 100, 200, 0.2);
+            border-radius: 20px;
+            padding: 44px 40px 40px;
+            max-width: 540px;
+            width: 100%;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(120, 100, 200, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Progress bar */
+        .progress-wrapper {
+            margin-bottom: 32px;
+        }
+
+        .progress-label {
+            font-size: 0.78em;
+            font-weight: 500;
+            color: rgba(180, 170, 220, 0.7);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c5cbf, #a78bfa, #c084fc);
+            border-radius: 4px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Step container */
+        .step {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step h2 {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #f0ecff;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .step .subtitle {
+            font-size: 0.9em;
+            color: rgba(180, 170, 220, 0.65);
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* Option cards */
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .option {
+            padding: 11px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(140, 120, 210, 0.22);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.92em;
+            font-weight: 500;
+            color: rgba(220, 210, 255, 0.85);
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.2s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .option:hover {
+            background: rgba(140, 120, 210, 0.12);
+            border-color: rgba(160, 140, 230, 0.4);
+            color: #f0ecff;
+        }
+
+        .option.selected {
+            background: rgba(124, 92, 191, 0.3);
+            border-color: #a78bfa;
+            color: #f0ecff;
+            box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.3), 0 2px 12px rgba(124, 92, 191, 0.2);
+        }
+
+        .option:active {
+            transform: scale(0.97);
+        }
+
+        /* Hidden radio inputs */
+        .option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                transform 0.15s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(200, 190, 240, 0.8);
+            border: 1px solid rgba(140, 120, 210, 0.2);
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f0ecff;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #7c5cbf, #9b6dd7);
+            color: #fff;
+            margin-left: auto;
+            box-shadow: 0 4px 16px rgba(124, 92, 191, 0.3);
+        }
+
+        .btn-next:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(124, 92, 191, 0.4);
+        }
+
+        .btn-next:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn.hidden {
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Success / error states */
+        .result-msg {
+            text-align: center;
+            padding: 40px 0 16px;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .result-msg .icon {
+            font-size: 2.4em;
+            margin-bottom: 14px;
+        }
+
+        .result-msg h3 {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: #f0ecff;
+            margin-bottom: 8px;
+        }
+
+        .result-msg p {
+            font-size: 0.9em;
+            color: rgba(180, 170, 220, 0.7);
+            line-height: 1.5;
+        }
+
+        .error-msg {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            color: #fca5a5;
+            font-size: 0.88em;
+            text-align: center;
+            animation: fadeIn 0.25s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 520px) {
+            body { padding: 16px; }
+
+            .card {
+                padding: 32px 22px 28px;
+                border-radius: 16px;
+            }
+
+            .step h2 { font-size: 1.2em; }
+
+            .options { gap: 8px; }
+
+            .option {
+                padding: 10px 16px;
+                font-size: 0.88em;
+            }
+
+            .nav { margin-top: 28px; }
+
+            .btn {
+                padding: 11px 22px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="progress-wrapper">
+            <div class="progress-label">Step <span id="stepNum">1</span> of 5</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+            </div>
+        </div>
+
+        <div id="formContainer">
+            <!-- Step 1 -->
+            <div class="step active" data-step="1" data-field="screen_time">
+                <h2>How much screen time do you average daily?</h2>
+                <p class="subtitle">Include phones, laptops, tablets -- everything with a screen.</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="screen_time" value="Less than 2 hours">Less than 2 hours</label>
+                    <label class="option"><input type="radio" name="screen_time" value="2-4 hours">2-4 hours</label>
+                    <label class="option"><input type="radio" name="screen_time" value="4-6 hours">4-6 hours</label>
+                    <label class="option"><input type="radio" name="screen_time" value="6-8 hours">6-8 hours</label>
+                    <label class="option"><input type="radio" name="screen_time" value="8+ hours">8+ hours</label>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step" data-step="2" data-field="primary_activity">
+                <h2>What do you spend most of your screen time on?</h2>
+                <p class="subtitle">Pick the activity that takes up the biggest share.</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="primary_activity" value="Social media">Social media</label>
+                    <label class="option"><input type="radio" name="primary_activity" value="Work">Work</label>
+                    <label class="option"><input type="radio" name="primary_activity" value="Gaming">Gaming</label>
+                    <label class="option"><input type="radio" name="primary_activity" value="Streaming">Streaming</label>
+                    <label class="option"><input type="radio" name="primary_activity" value="News">News</label>
+                    <label class="option"><input type="radio" name="primary_activity" value="Other">Other</label>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step" data-step="3" data-field="primary_device">
+                <h2>What is your primary device?</h2>
+                <p class="subtitle">The one you reach for most often throughout the day.</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="primary_device" value="Phone">Phone</label>
+                    <label class="option"><input type="radio" name="primary_device" value="Laptop">Laptop</label>
+                    <label class="option"><input type="radio" name="primary_device" value="Desktop">Desktop</label>
+                    <label class="option"><input type="radio" name="primary_device" value="Tablet">Tablet</label>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step" data-step="4" data-field="before_bed">
+                <h2>Do you use screens right before bed?</h2>
+                <p class="subtitle">Within the last 30 minutes before you try to sleep.</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="before_bed" value="Always">Always</label>
+                    <label class="option"><input type="radio" name="before_bed" value="Often">Often</label>
+                    <label class="option"><input type="radio" name="before_bed" value="Sometimes">Sometimes</label>
+                    <label class="option"><input type="radio" name="before_bed" value="Rarely">Rarely</label>
+                    <label class="option"><input type="radio" name="before_bed" value="Never">Never</label>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step" data-step="5" data-field="too_much">
+                <h2>Do you think you spend too much time on screens?</h2>
+                <p class="subtitle">Be honest -- no judgment here.</p>
+                <div class="options">
+                    <label class="option"><input type="radio" name="too_much" value="Definitely yes">Definitely yes</label>
+                    <label class="option"><input type="radio" name="too_much" value="Probably yes">Probably yes</label>
+                    <label class="option"><input type="radio" name="too_much" value="Not sure">Not sure</label>
+                    <label class="option"><input type="radio" name="too_much" value="Probably no">Probably no</label>
+                    <label class="option"><input type="radio" name="too_much" value="Definitely no">Definitely no</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav" id="navButtons">
+            <button class="btn btn-back hidden" id="btnBack" type="button">Back</button>
+            <button class="btn btn-next" id="btnNext" type="button" disabled>Next</button>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var currentStep = 1;
+        var totalSteps = 5;
+        var answers = {};
+
+        var stepNum = document.getElementById('stepNum');
+        var progressFill = document.getElementById('progressFill');
+        var btnBack = document.getElementById('btnBack');
+        var btnNext = document.getElementById('btnNext');
+        var formContainer = document.getElementById('formContainer');
+        var navButtons = document.getElementById('navButtons');
+        var steps = document.querySelectorAll('.step');
+
+        // Option click handling
+        formContainer.addEventListener('click', function(e) {
+            var option = e.target.closest('.option');
+            if (!option) return;
+
+            var radio = option.querySelector('input[type="radio"]');
+            if (!radio) return;
+
+            radio.checked = true;
+
+            var stepEl = option.closest('.step');
+            var siblings = stepEl.querySelectorAll('.option');
+            for (var i = 0; i < siblings.length; i++) {
+                siblings[i].classList.remove('selected');
+            }
+            option.classList.add('selected');
+
+            var fieldName = stepEl.getAttribute('data-field');
+            answers[fieldName] = radio.value;
+
+            btnNext.disabled = false;
+        });
+
+        function showStep(n) {
+            for (var i = 0; i < steps.length; i++) {
+                steps[i].classList.remove('active');
+            }
+
+            // Brief delay for animation reset
+            requestAnimationFrame(function() {
+                steps[n - 1].classList.add('active');
+            });
+
+            stepNum.textContent = n;
+            progressFill.style.width = (n / totalSteps * 100) + '%';
+
+            // Back button visibility
+            if (n === 1) {
+                btnBack.classList.add('hidden');
+            } else {
+                btnBack.classList.remove('hidden');
+            }
+
+            // Next button text
+            if (n === totalSteps) {
+                btnNext.textContent = 'See Results';
+            } else {
+                btnNext.textContent = 'Next';
+            }
+
+            // Check if current step has a selection
+            var fieldName = steps[n - 1].getAttribute('data-field');
+            if (answers[fieldName]) {
+                btnNext.disabled = false;
+            } else {
+                btnNext.disabled = true;
+            }
+
+            currentStep = n;
+        }
+
+        btnBack.addEventListener('click', function() {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        });
+
+        btnNext.addEventListener('click', function() {
+            if (btnNext.disabled) return;
+
+            if (currentStep < totalSteps) {
+                showStep(currentStep + 1);
+            } else {
+                submitForm();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !btnNext.disabled) {
+                btnNext.click();
+            }
+        });
+
+        function submitForm() {
+            btnNext.disabled = true;
+            btnNext.textContent = 'Submitting...';
+            btnBack.disabled = true;
+
+            // Clear any previous error
+            var prevErr = document.querySelector('.error-msg');
+            if (prevErr) prevErr.remove();
+
+            var body = {
+                screen_time: answers.screen_time,
+                primary_activity: answers.primary_activity,
+                primary_device: answers.primary_device,
+                before_bed: answers.before_bed,
+                too_much: answers.too_much
+            };
+
+            fetch('https://sutrena.com/api/forms/8aeb610e-eb85-4bee-ab8a-219fe98b9ba2/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            })
+            .then(function(res) {
+                if (!res.ok) throw new Error('Submission failed');
+                return res.json();
+            })
+            .then(function() {
+                // Hide steps and nav, show success
+                formContainer.innerHTML = '<div class="result-msg"><div class="icon">&#9889;</div><h3>Thanks!</h3><p>Redirecting to live results...</p></div>';
+                navButtons.style.display = 'none';
+
+                setTimeout(function() {
+                    window.location.href = 'https://sutrena.com/d/screentime-results';
+                }, 1500);
+            })
+            .catch(function() {
+                btnNext.disabled = false;
+                btnNext.textContent = 'See Results';
+                btnBack.disabled = false;
+
+                var err = document.createElement('div');
+                err.className = 'error-msg';
+                err.textContent = 'Something went wrong. Please try again.';
+                navButtons.insertAdjacentElement('afterend', err);
+            });
+        }
+    })();
+    </script>
+</body>
+</html>
