@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      color: white;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+    .tagline {
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .feature {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .feature h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .feature p {
+      font-size: 0.875rem;
+      opacity: 0.8;
+    }
+    .waitlist-cta {
+      background: white;
+      color: #667eea;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    .waitlist-cta h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .waitlist-cta p {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+    .form-embed {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Coming Soon</h1>
+    <p class="tagline">We're building something amazing. Be the first to know when we launch.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast</h3>
+        <p>Lightning quick</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure</h3>
+        <p>Privacy-first</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎨</div>
+        <h3>Beautiful</h3>
+        <p>Pixel perfect</p>
+      </div>
+    </div>
+
+    <div class="waitlist-cta">
+      <h2>Join the Waitlist</h2>
+      <p>Get early access and exclusive updates</p>
+      <div class="form-embed">
+        <!-- Embed waitlist form here -->
+        <p style="color: #9ca3af; font-size: 0.875rem;">Form will be embedded after workflow execution</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

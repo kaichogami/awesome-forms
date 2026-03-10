@@ -4,9 +4,9 @@
   "description": "Developer-friendly dark theme with monospace accents for bug reporting",
   "category": "bug-report",
   "tags": ["dark", "developer", "monospace"],
-  "liveDemo": "https://sutrena.com/templates/darkmode-bugreport",
+  "liveDemo": "https://sutrena.com/workflows/darkmode-bugreport",
   "sutrena": {
-    "templateId": "bug-report",
+    "presetId": "bug-report",
     "fields": [
       { "name": "email", "label": "Reporter Email", "type": "email", "required": true },
       { "name": "severity", "label": "Severity", "type": "select", "required": true, "options": ["Critical", "High", "Medium", "Low"] },

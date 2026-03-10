@@ -1,0 +1,76 @@
+{
+  "id": "personal-crm",
+  "name": "Personal CRM",
+  "description": "Lightweight CRM for solopreneurs: contact form, deal pipeline dashboard with stage management, webhooks for new contacts, and analytics.",
+  "tags": ["crm", "sales", "pipeline", "solopreneur"],
+  "primitives": ["form", "dashboard", "webhook", "analytics"],
+  "steps": [
+    {
+      "type": "form",
+      "ref": "contact-form",
+      "config": {
+        "name": "Add Contact",
+        "fields": [
+          {"name": "name", "label": "Name", "type": "text", "required": true},
+          {"name": "email", "label": "Email", "type": "email", "required": true},
+          {"name": "company", "label": "Company", "type": "text", "required": false},
+          {"name": "deal_value", "label": "Deal Value ($)", "type": "number", "required": false, "min": 0},
+          {"name": "stage", "label": "Stage", "type": "select", "required": true, "options": ["Lead", "Qualified", "Proposal", "Negotiation", "Closed Won", "Closed Lost"]},
+          {"name": "notes", "label": "Notes", "type": "textarea", "required": false}
+        ],
+        "successMessage": "Contact added to pipeline."
+      }
+    },
+    {
+      "type": "dashboard",
+      "ref": "pipeline-dashboard",
+      "config": {
+        "title": "Sales Pipeline",
+        "isPublic": false,
+        "formId": "$ref:contact-form",
+        "dsl": {
+          "version": 1,
+          "widgets": [
+            {
+              "type": "metric_card",
+              "value": "sum(deal_value)"
+            },
+            {
+              "type": "pie_chart",
+              "groupBy": "stage"
+            },
+            {
+              "type": "action_table",
+              "columns": ["name", "email", "company", "deal_value", "stage"],
+              "editableFields": [
+                {
+                  "field": "stage",
+                  "options": ["Lead", "Qualified", "Proposal", "Negotiation", "Closed Won", "Closed Lost"]
+                }
+              ],
+              "limit": 100,
+              "sort": "submitted_at:desc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "webhook",
+      "ref": "new-contact-notification",
+      "config": {
+        "description": "Notify on new contacts",
+        "formIds": ["$ref:contact-form"],
+        "template": "slack"
+      }
+    },
+    {
+      "type": "analytics",
+      "ref": "crm-analytics",
+      "config": {
+        "name": "CRM Activity Tracking",
+        "subdomainId": "$subdomain"
+      }
+    }
+  ]
+}

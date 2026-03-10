@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #fafafa;
+      padding: 3rem 1rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: #6b7280;
+      font-size: 1rem;
+    }
+    .releases {
+      position: relative;
+    }
+    .releases::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e5e7eb;
+    }
+    .release {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    .release::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: white;
+      border: 3px solid #3b82f6;
+      border-radius: 50%;
+    }
+    .release-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .version {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111;
+    }
+    .type-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .type-Feature {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .type-Fix {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .type-Breaking {
+      background: #fecaca;
+      color: #991b1b;
+    }
+    .type-Improvement {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .release h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+    .release-body {
+      color: #4b5563;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Changelog</h1>
+      <p class="subtitle">Track what's new, fixed, and improved</p>
+    </header>
+
+    <div class="releases">
+      <!-- sutrena:entries -->
+      <div class="empty-state">
+        <p>No releases yet. Check back soon!</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

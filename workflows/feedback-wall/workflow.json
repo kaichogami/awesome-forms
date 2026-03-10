@@ -1,0 +1,33 @@
+{
+  "id": "feedback-wall",
+  "name": "Feedback Wall",
+  "description": "Public testimonial wall with submission form. New feedback auto-publishes to create social proof.",
+  "tags": ["testimonials", "feedback", "public", "social-proof"],
+  "primitives": ["page", "form", "entries"],
+  "steps": [
+    {
+      "type": "page",
+      "ref": "feedback-wall",
+      "config": {
+        "slug": "testimonials",
+        "title": "What Our Customers Say",
+        "htmlFile": "page.html",
+        "entryTemplateFile": "entry.html"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "feedback-form",
+      "config": {
+        "name": "Share Your Feedback",
+        "fields": [
+          {"name": "name", "label": "Your Name", "type": "text", "required": true},
+          {"name": "role", "label": "Role/Company", "type": "text", "required": true, "placeholder": "CEO at Acme Inc"},
+          {"name": "message", "label": "Your Feedback", "type": "textarea", "required": true, "placeholder": "What do you love about our product?"}
+        ],
+        "autoEntryPageId": "$ref:feedback-wall",
+        "successMessage": "Thank you for your feedback! It will appear on our wall shortly."
+      }
+    }
+  ]
+}

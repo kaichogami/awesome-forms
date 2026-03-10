@@ -1,0 +1,68 @@
+{
+  "id": "hiring-pipeline",
+  "name": "Hiring Pipeline",
+  "description": "Complete recruitment workflow: application form, interactive triage dashboard with status management, and team notifications.",
+  "tags": ["hiring", "recruitment", "hr", "workflow"],
+  "primitives": ["form", "dashboard", "webhook"],
+  "steps": [
+    {
+      "type": "form",
+      "ref": "application-form",
+      "config": {
+        "name": "Job Application",
+        "fields": [
+          {"name": "name", "label": "Full Name", "type": "text", "required": true},
+          {"name": "email", "label": "Email", "type": "email", "required": true},
+          {"name": "role", "label": "Position", "type": "select", "required": true, "options": ["Software Engineer", "Product Manager", "Designer", "Data Scientist", "Marketing Manager"]},
+          {"name": "resume", "label": "Resume", "type": "file", "required": true, "accept": ".pdf,.doc,.docx", "maxFileSize": 5242880},
+          {"name": "cover_letter", "label": "Cover Letter", "type": "textarea", "required": false},
+          {"name": "linkedin", "label": "LinkedIn Profile", "type": "url", "required": false}
+        ],
+        "successMessage": "Application submitted! We'll review it and get back to you soon."
+      }
+    },
+    {
+      "type": "dashboard",
+      "ref": "hiring-dashboard",
+      "config": {
+        "title": "Hiring Pipeline",
+        "isPublic": false,
+        "formId": "$ref:application-form",
+        "dsl": {
+          "version": 1,
+          "widgets": [
+            {
+              "type": "metric_card",
+              "value": "count(*)"
+            },
+            {
+              "type": "pie_chart",
+              "groupBy": "role"
+            },
+            {
+              "type": "action_table",
+              "columns": ["name", "email", "role", "status"],
+              "editableFields": [
+                {
+                  "field": "status",
+                  "options": ["New", "Reviewing", "Interview", "Offer", "Rejected"]
+                }
+              ],
+              "limit": 100,
+              "sort": "submitted_at:desc"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "webhook",
+      "ref": "hr-notification",
+      "config": {
+        "description": "Notify HR team of new applications",
+        "formIds": ["$ref:application-form"],
+        "template": "slack"
+      }
+    }
+  ]
+}

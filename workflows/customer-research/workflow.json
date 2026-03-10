@@ -1,0 +1,87 @@
+{
+  "id": "customer-research",
+  "name": "Customer Research",
+  "description": "Organized research suite: folder with NPS survey, feature priority poll, and interview requests. Unified dashboard aggregates insights.",
+  "tags": ["research", "feedback", "nps", "product"],
+  "primitives": ["folder", "form", "dashboard"],
+  "steps": [
+    {
+      "type": "folder",
+      "ref": "research-folder",
+      "config": {
+        "name": "Customer Research",
+        "description": "Product research and feedback collection"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "nps-survey",
+      "config": {
+        "name": "NPS Survey",
+        "folderId": "$ref:research-folder",
+        "fields": [
+          {"name": "score", "label": "How likely are you to recommend us to a friend? (0-10)", "type": "number", "required": true, "min": 0, "max": 10},
+          {"name": "reason", "label": "Why did you give this score?", "type": "textarea", "required": true},
+          {"name": "email", "label": "Email (optional)", "type": "email", "required": false}
+        ],
+        "successMessage": "Thank you for your feedback!"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "feature-priority",
+      "config": {
+        "name": "Feature Priority Survey",
+        "folderId": "$ref:research-folder",
+        "fields": [
+          {"name": "feature_1", "label": "Feature 1 Priority", "type": "select", "required": true, "options": ["Must Have", "Nice to Have", "Don't Need"]},
+          {"name": "feature_2", "label": "Feature 2 Priority", "type": "select", "required": true, "options": ["Must Have", "Nice to Have", "Don't Need"]},
+          {"name": "feature_3", "label": "Feature 3 Priority", "type": "select", "required": true, "options": ["Must Have", "Nice to Have", "Don't Need"]},
+          {"name": "other_requests", "label": "Other Feature Requests", "type": "textarea", "required": false}
+        ],
+        "successMessage": "Thanks for helping us prioritize!"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "interview-request",
+      "config": {
+        "name": "User Interview Request",
+        "folderId": "$ref:research-folder",
+        "fields": [
+          {"name": "name", "label": "Name", "type": "text", "required": true},
+          {"name": "email", "label": "Email", "type": "email", "required": true},
+          {"name": "role", "label": "Role/Title", "type": "text", "required": true},
+          {"name": "availability", "label": "Availability", "type": "textarea", "required": true, "placeholder": "When are you available for a 30-min call?"}
+        ],
+        "successMessage": "Thanks! We'll reach out to schedule a time."
+      }
+    },
+    {
+      "type": "dashboard",
+      "ref": "research-dashboard",
+      "config": {
+        "title": "Research Insights",
+        "formId": "$ref:nps-survey",
+        "dsl": {
+          "version": 1,
+          "widgets": [
+            {
+              "type": "metric_card",
+              "value": "avg(score)"
+            },
+            {
+              "type": "bar_chart",
+              "groupBy": "score"
+            },
+            {
+              "type": "data_table",
+              "columns": ["score", "reason", "email"],
+              "limit": 50
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "changelog",
+  "name": "Changelog",
+  "description": "Public changelog page with release notes form. New releases auto-publish to the page and metrics dashboard tracks release velocity.",
+  "tags": ["product", "releases", "public"],
+  "primitives": ["page", "form", "entries", "dashboard"],
+  "steps": [
+    {
+      "type": "page",
+      "ref": "changelog-page",
+      "config": {
+        "slug": "changelog",
+        "title": "Changelog",
+        "htmlFile": "page.html",
+        "entryTemplateFile": "entry.html"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "release-form",
+      "config": {
+        "name": "Publish Release",
+        "fields": [
+          {"name": "version", "label": "Version", "type": "text", "required": true, "placeholder": "1.0.0"},
+          {"name": "type", "label": "Release Type", "type": "select", "required": true, "options": ["Feature", "Fix", "Breaking", "Improvement"]},
+          {"name": "title", "label": "Title", "type": "text", "required": true},
+          {"name": "body", "label": "Release Notes", "type": "textarea", "required": true}
+        ],
+        "autoEntryPageId": "$ref:changelog-page",
+        "successMessage": "Release published to changelog."
+      }
+    },
+    {
+      "type": "dashboard",
+      "ref": "release-dashboard",
+      "config": {
+        "title": "Release Metrics",
+        "formId": "$ref:release-form",
+        "dsl": {
+          "version": 1,
+          "widgets": [
+            {
+              "type": "metric_card",
+              "value": "count(*)"
+            },
+            {
+              "type": "bar_chart",
+              "groupBy": "$submitted_at:month"
+            },
+            {
+              "type": "pie_chart",
+              "groupBy": "type"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

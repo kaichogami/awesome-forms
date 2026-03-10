@@ -4,9 +4,9 @@
   "description": "90s-web terminal aesthetic with monospace fonts, dashed borders, and a hacker color palette",
   "category": "newsletter",
   "tags": ["retro", "terminal", "monospace"],
-  "liveDemo": "https://sutrena.com/templates/retro-newsletter",
+  "liveDemo": "https://sutrena.com/workflows/retro-newsletter",
   "sutrena": {
-    "templateId": "newsletter",
+    "presetId": "newsletter",
     "fields": [
       { "name": "email", "label": "Email", "type": "email", "required": true },
       { "name": "name", "label": "Name", "type": "text" },

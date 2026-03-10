@@ -1,0 +1,64 @@
+{
+  "id": "community-board",
+  "name": "Community Board",
+  "description": "Public community board with submission form, auto-publishing entries, and engagement dashboard tracking post metrics by category.",
+  "tags": ["community", "forum", "public", "engagement"],
+  "primitives": ["page", "form", "entries", "dashboard"],
+  "steps": [
+    {
+      "type": "page",
+      "ref": "community-page",
+      "config": {
+        "slug": "community",
+        "title": "Community Board",
+        "htmlFile": "page.html",
+        "entryTemplateFile": "entry.html"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "post-form",
+      "config": {
+        "name": "Submit Post",
+        "fields": [
+          {"name": "author", "label": "Your Name", "type": "text", "required": true},
+          {"name": "category", "label": "Category", "type": "select", "required": true, "options": ["Question", "Showcase", "Discussion", "Resource", "Event"]},
+          {"name": "title", "label": "Title", "type": "text", "required": true, "maxLength": 100},
+          {"name": "content", "label": "Content", "type": "textarea", "required": true}
+        ],
+        "autoEntryPageId": "$ref:community-page",
+        "successMessage": "Post published to the community board!"
+      }
+    },
+    {
+      "type": "dashboard",
+      "ref": "engagement-dashboard",
+      "config": {
+        "title": "Community Metrics",
+        "formId": "$ref:post-form",
+        "dsl": {
+          "version": 1,
+          "widgets": [
+            {
+              "type": "metric_card",
+              "value": "count(*)"
+            },
+            {
+              "type": "line_chart",
+              "groupBy": "$submitted_at:day"
+            },
+            {
+              "type": "pie_chart",
+              "groupBy": "category"
+            },
+            {
+              "type": "data_table",
+              "columns": ["author", "category", "title"],
+              "limit": 20
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

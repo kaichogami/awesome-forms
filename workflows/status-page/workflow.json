@@ -1,0 +1,43 @@
+{
+  "id": "status-page",
+  "name": "Status Page",
+  "description": "Public status page with incident reporting form. New incidents auto-publish to the page and notify your team via webhook.",
+  "tags": ["devops", "monitoring", "public"],
+  "primitives": ["page", "form", "entries", "webhook"],
+  "steps": [
+    {
+      "type": "page",
+      "ref": "status-page",
+      "config": {
+        "slug": "status",
+        "title": "Service Status",
+        "htmlFile": "page.html",
+        "entryTemplateFile": "entry.html"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "incident-form",
+      "config": {
+        "name": "Report Incident",
+        "fields": [
+          {"name": "service", "label": "Service", "type": "select", "required": true, "options": ["API", "Dashboard", "Website", "Database", "CDN"]},
+          {"name": "severity", "label": "Severity", "type": "select", "required": true, "options": ["Critical", "Major", "Minor", "Maintenance"]},
+          {"name": "title", "label": "Title", "type": "text", "required": true},
+          {"name": "description", "label": "Description", "type": "textarea", "required": true}
+        ],
+        "autoEntryPageId": "$ref:status-page",
+        "successMessage": "Incident reported and published to status page."
+      }
+    },
+    {
+      "type": "webhook",
+      "ref": "team-notification",
+      "config": {
+        "description": "Notify team of new incidents",
+        "formIds": ["$ref:incident-form"],
+        "template": "slack"
+      }
+    }
+  ]
+}

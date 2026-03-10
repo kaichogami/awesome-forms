@@ -1,0 +1,64 @@
+{
+  "id": "launch-kit",
+  "name": "Launch Kit",
+  "description": "Complete product launch setup: landing page, waitlist form, growth dashboard, and analytics tracking.",
+  "tags": ["launch", "waitlist", "marketing", "analytics"],
+  "primitives": ["page", "form", "dashboard", "analytics"],
+  "steps": [
+    {
+      "type": "page",
+      "ref": "landing-page",
+      "config": {
+        "slug": "index",
+        "title": "Coming Soon",
+        "htmlFile": "page.html"
+      }
+    },
+    {
+      "type": "form",
+      "ref": "waitlist-form",
+      "config": {
+        "name": "Waitlist",
+        "fields": [
+          {"name": "email", "label": "Email", "type": "email", "required": true},
+          {"name": "name", "label": "Name", "type": "text", "required": true},
+          {"name": "referral", "label": "How did you hear about us?", "type": "select", "required": false, "options": ["Twitter", "LinkedIn", "Product Hunt", "Friend", "Search", "Other"]}
+        ],
+        "successMessage": "You're on the list! We'll notify you when we launch."
+      }
+    },
+    {
+      "type": "dashboard",
+      "ref": "growth-dashboard",
+      "config": {
+        "title": "Launch Metrics",
+        "formId": "$ref:waitlist-form",
+        "dsl": {
+          "version": 1,
+          "widgets": [
+            {
+              "type": "metric_card",
+              "value": "count(*)"
+            },
+            {
+              "type": "line_chart",
+              "groupBy": "$submitted_at:day"
+            },
+            {
+              "type": "pie_chart",
+              "groupBy": "referral"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "analytics",
+      "ref": "landing-analytics",
+      "config": {
+        "name": "Landing Page Analytics",
+        "subdomainId": "$subdomain"
+      }
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 {
-  "name": "awesome-forms",
+  "name": "workflow-blueprints",
   "version": "1.0.0",
-  "description": "Beautiful, open-source form templates",
+  "description": "Multi-primitive workflow compositions for AI agents on Sutrena",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kaichogami/awesome-forms"
+    "url": "https://github.com/kaichogami/workflow-blueprints"
   },
-  "keywords": ["forms", "templates", "html", "css", "open-source"]
+  "keywords": ["workflows", "blueprints", "ai-agents", "sutrena", "forms", "pages", "dashboards", "webhooks", "analytics"]
 }
